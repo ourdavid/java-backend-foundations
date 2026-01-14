@@ -7,35 +7,25 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the measures of triangle X: ");
-        double xA, xB, xC, yA, yB, yC;
+        Triangle x, y;
 
-        xA = Double.parseDouble(scanner.nextLine());
-        xB = Double.parseDouble(scanner.nextLine());
-        xC = Double.parseDouble(scanner.nextLine());
+        x = new Triangle();
+        y = new Triangle();
 
-        double pX = p(xA,xB,xC);
-        double areaX = area(pX,xA,xB,xC);
-
+        x.a = Double.parseDouble(scanner.nextLine());
+        x.b = Double.parseDouble(scanner.nextLine());
+        x.c = Double.parseDouble(scanner.nextLine());
 
         System.out.println("Enter the measures of triangle Y: ");
 
-        yA = Double.parseDouble(scanner.nextLine());
-        yB = Double.parseDouble(scanner.nextLine());
-        yC = Double.parseDouble(scanner.nextLine());
+        y.a = Double.parseDouble(scanner.nextLine());
+        y.b = Double.parseDouble(scanner.nextLine());
+        y.c = Double.parseDouble(scanner.nextLine());
 
-        double pY = p(yA,yB,yC);
-        double areaY = area(pY,yA,yB,yC);
-
-        System.out.println("Triangle X area: " + String.format("%.4f",areaX));
-        System.out.println("Triangle Y area: " + String.format("%.4f",areaY));
-        System.out.println(majorArea(areaX,areaY));
+        System.out.println("Triangle X area: " + String.format("%.4f",x.area()));
+        System.out.println("Triangle Y area: " + String.format("%.4f",y.area()));
+        System.out.println(x.majorArea(y.area()));
 
         scanner.close();
-    }static double p(double a, double b, double c){
-        return (a+b+c)/2;
-    }static double area(double p, double a,double b,double c){
-        return Math.sqrt(p * (p-a) * (p-b) * (p-c));
-    }static String majorArea(double x, double y){
-        return  (x > y) ? "Larger area: X" : "Larger area: Y";
     }
 }
