@@ -1,7 +1,7 @@
 package com.contribuintes.entities;
 
 public class Individual extends Person {
-    double healthcareExpenses;
+    private double healthcareExpenses;
 
     public Individual(String name, double annualIncome, double healthcareExpenses) {
         super(name, annualIncome);
