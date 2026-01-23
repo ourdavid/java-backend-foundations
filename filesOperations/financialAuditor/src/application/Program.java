@@ -1,60 +1,30 @@
 package application;
 
 import entitites.Values;
+import util.CsvWriter;
 
-import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
+        String inputPath = "/home/david/teste.csv";
+        String outputPath = "/home/david/teste2.csv";
 
-        Scanner sc = new Scanner(System.in);
-        String path = "/home/david/transactions.csv";
-        String exit = "/home/david/transactions2.csv";
+        try {
+            List<Values> values = util.CsvReader.readCsv(inputPath);
 
-        List<Values> values = new ArrayList<>();
-
-        try(BufferedReader br = new BufferedReader(new FileReader(path))){
-
-            String line = br.readLine();
-            line = br.readLine();
-
-            while (line != null){
-                String[] columns = line.split(",");
-                String date = columns[0];
-                String Description = columns[1];
-                try {
-                    double amount = Double.parseDouble(columns[2]);
-                    values.add(new Values(date,Description,amount));
-                } catch (NumberFormatException e) {
-                    System.out.println("Warning: Found a bad number, skipping line..."+ e.getMessage());
-                }
-
-                line = br.readLine();
+            double total = 0.0;
+            for (Values v : values) {
+                System.out.println(v);
+                total += v.getAmount();
             }
 
-        } catch (IOException e) {
-            System.out.println("Critical Error: The file does not exist!");
-        }
+            System.out.println("Total Amount: $" + String.format("%.2f", total));
 
-        double totalBalance = 0;
-        for (Values value : values){
-            System.out.println(value);
-            totalBalance += value.getAmount();
-        }
+            CsvWriter.writeCsv(outputPath,values);
 
-        System.out.println("Total Balance: $"+String.format("%.2f",totalBalance));
-
-        try(BufferedWriter bf = new BufferedWriter(new FileWriter(exit,true))){
-            for(Values value : values){
-                bf.write(String.valueOf(value));
-                bf.newLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Error: not found");
+        }catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
         }
-        sc.close();
     }
 }

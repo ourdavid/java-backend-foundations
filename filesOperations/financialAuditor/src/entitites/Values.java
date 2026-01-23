@@ -1,6 +1,5 @@
 package entitites;
 
-import java.time.LocalDate;
 
 public class Values {
     private String date;
@@ -21,7 +20,6 @@ public class Values {
         return description;
     }
 
-
     public Double getAmount() {
         return amount;
     }
@@ -32,6 +30,5 @@ public class Values {
                 " | Description: " + description +
                 " | Amount: $" + String.format("%.2f", amount);
     }
-
 
 }
